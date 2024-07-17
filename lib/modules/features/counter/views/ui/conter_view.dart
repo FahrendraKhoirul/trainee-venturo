@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/counter/controllers/conter_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:trainee/modules/global_controllers/global_controller.dart';
 
 class ConterView extends StatelessWidget {
   const ConterView({super.key});
@@ -12,6 +13,7 @@ class ConterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalController.to.checkConnection();
     analytics.setCurrentScreen(
       screenName: 'Initial Screen',
       screenClassOverride: 'Trainee',
@@ -24,10 +26,10 @@ class ConterView extends StatelessWidget {
           backgroundColor: MainColor.primary,
           title: Text(
             "Conter App",
-            style: GoogleFonts.roboto(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w700,
-            ),
+            // style: GoogleFonts.roboto(
+            //   fontSize: 20.sp,
+            //   fontWeight: FontWeight.w700,
+            // ),
           ),
         ),
         body: Container(
@@ -38,10 +40,10 @@ class ConterView extends StatelessWidget {
           child: Center(
             child: Text(
               "Jumlah Penambahan\n${ConterController.to.count.value}",
-              style: GoogleFonts.roboto(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w400,
-              ),
+              // style: GoogleFonts.roboto(
+              //   fontSize: 18.sp,
+              //   fontWeight: FontWeight.w400,
+              // ),
               textAlign: TextAlign.center,
             ),
           ),
