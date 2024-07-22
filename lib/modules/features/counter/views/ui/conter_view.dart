@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/counter/controllers/conter_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -13,6 +12,7 @@ class ConterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // check koneksi
     GlobalController.to.checkConnection();
     analytics.setCurrentScreen(
       screenName: 'Initial Screen',
@@ -24,7 +24,7 @@ class ConterView extends StatelessWidget {
         appBar: AppBar(
           titleSpacing: 0,
           backgroundColor: MainColor.primary,
-          title: Text(
+          title: const Text(
             "Conter App",
             // style: GoogleFonts.roboto(
             //   fontSize: 20.sp,

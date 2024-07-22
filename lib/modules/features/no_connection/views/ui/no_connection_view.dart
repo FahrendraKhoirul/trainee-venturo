@@ -28,7 +28,7 @@ class NoConnectionView extends StatelessWidget {
           //   height: 100,
           // ),
           SizedBox(height: 20.h),
-          Text(
+          const Text(
             "Oops tidak ada koneksi internet",
             // style: GoogleFonts.roboto(
             //   fontSize: 22.sp,
@@ -37,7 +37,7 @@ class NoConnectionView extends StatelessWidget {
             // ),
           ),
           SizedBox(height: 10.h),
-          Text(
+          const Text(
             "Pastikan wifi atau data seluler terhubung, lalu tekan tombol coba lagi",
             // style: GoogleFonts.roboto(
             //   fontSize: 18.sp,
@@ -69,7 +69,7 @@ class NoConnectionView extends StatelessWidget {
                     );
                   }
                 },
-                child: Text(
+                child: const Text(
                   "Coba Lagi",
                   // style: GoogleFonts.roboto(
                   //   fontSize: 18.sp,
