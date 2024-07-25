@@ -73,12 +73,13 @@ class SignInController extends GetxController {
     // init dio from HttpService
     Dio dio = HttpService.dioCall();
     try {
-      final response = await dio.post(ApiConstant.loginAuth, queryParameters: {
-        email: email,
-        password: password,
+      final response = await dio.post(ApiConstant.loginAuth, data: {
+        'email': email,
+        'password': password,
       });
       if (response.statusCode == 200) {
         LocalStorageService.signInAuth(email, password);
+        Get.offAllNamed(MainRoute.initial);
       } else {
         PanaraInfoDialog.show(context,
             title: "Login Gagal",
@@ -123,7 +124,7 @@ class SignInController extends GetxController {
           buttonText: "Oke", onTapDismiss: () {
         Get.back();
       }, panaraDialogType: PanaraDialogType.warning, barrierDismissible: false);
-      print(e.toString());
+      // print(e.toString());
     }
     return null;
   }

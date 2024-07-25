@@ -47,6 +47,10 @@ dependencies:
  pinput: ^5.0.0
  firebase_auth: ^4.16.0
  google_sign_in: ^6.1.6
+ geolocator: ^11.1.0
+ geocoding: ^3.0.0
+ app_settings: ^5.1.1
+ flutter_conditional_rendering: ^2.1.0
 
 dev_dependencies:
  flutter_test:
