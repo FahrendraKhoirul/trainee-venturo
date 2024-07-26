@@ -8,6 +8,12 @@ import 'package:trainee/modules/features/forgot_password/views/ui/forgot_passwor
 import 'package:trainee/modules/features/forgot_password/views/ui/otp_view.dart';
 import 'package:trainee/modules/features/initial/bindings/get_location_binding.dart';
 import 'package:trainee/modules/features/initial/views/ui/get_location_view.dart';
+import 'package:trainee/modules/features/navbar/bindings/navbar_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/home/bindings/home_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/home/views/ui/home_view.dart';
+import 'package:trainee/modules/features/navbar/modules/profile/bindings/profile_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/profile/views/ui/profile_view.dart';
+import 'package:trainee/modules/features/navbar/views/ui/navbar_view.dart';
 import 'package:trainee/modules/features/no_connection/views/ui/no_connection_view.dart';
 import 'package:trainee/modules/features/sign_in/binddings/sign_in_bindding.dart';
 import 'package:trainee/modules/features/sign_in/views/ui/sign_in_view.dart';
@@ -21,6 +27,24 @@ abstract class MainPage {
       name: MainRoute.initial,
       page: () => const GetLocationView(),
       binding: GetLocationBinding(),
+    ),
+    GetPage(
+      name: MainRoute.navbar,
+      page: () => const NavbarView(),
+      binding: NavbarBinding(),
+      bindings: [HomeBinding(), ProfileBinding()],
+      children: [
+        GetPage(
+          name: MainRoute.home,
+          page: () => const HomeView(),
+          binding: HomeBinding(),
+        ),
+        GetPage(
+          name: MainRoute.profile,
+          page: () => const ProfileView(),
+          binding: ProfileBinding(),
+        )
+      ],
     ),
     GetPage(
         name: MainRoute.counter,

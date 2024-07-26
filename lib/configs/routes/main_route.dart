@@ -7,4 +7,8 @@ abstract class MainRoute {
   static const String signIn = '/sign-in';
   static const String forgotPassword = '/forgot-password';
   static const String otp = '/otp';
+  static const String navbar = '/navbar';
+  static const String home = '/navbar/home';
+  static const String profile = '/navbar/profile';
+  static const String order = '/navbar/order';
 }

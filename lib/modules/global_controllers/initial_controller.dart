@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/initial/views/ui/get_location_view.dart';
@@ -47,7 +46,7 @@ class InitialController extends GetxController {
         address.value = locationResult.address;
         statusLocation.value = 'success';
         await Future.delayed(const Duration(seconds: 3));
-        Get.offAllNamed(MainRoute.counter);
+        Get.offAllNamed(MainRoute.navbar);
       } else {
         /// Jika jarak lokasi tidak cukup dekat, tampilkan pesan
         statusLocation.value = 'error';
