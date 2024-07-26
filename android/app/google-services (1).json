@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "804409403150",
+    "project_id": "intern-mobile-venturo",
+    "storage_bucket": "intern-mobile-venturo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804409403150:android:5d55b6a248ce17c5e3595f",
+        "android_client_info": {
+          "package_name": "com.core.venturo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804409403150-pi3fk7lu02kr1ipj76h38kf15sufconj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.core.venturo",
+            "certificate_hash": "242aadae3aa2da0f9455274f02abeb0693100fb5"
+          }
+        },
+        {
+          "client_id": "804409403150-imggak2ud4432jtlcl88kv8afs9krhl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaxuHvgpMTitafKoZkWKCmXRfz0MFMqBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804409403150-imggak2ud4432jtlcl88kv8afs9krhl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
