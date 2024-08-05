@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/modules/features/navbar/modules/home/models/menu_model.dart';
 
 class MenuCard extends StatelessWidget {
-  final Map<String, dynamic> menu;
+  final DataMenu menu;
   final bool isSelected;
   final void Function()? onTap;
 
@@ -45,10 +46,13 @@ class MenuCard extends StatelessWidget {
                 color: Colors.grey[100],
               ),
               child: CachedNetworkImage(
-                imageUrl: menu['foto'] ??
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                imageUrl: menu.foto!,
                 useOldImageOnUrlChange: true,
                 fit: BoxFit.contain,
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
               ),
             ),
 
@@ -59,13 +63,13 @@ class MenuCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    menu['name'],
+                    menu.nama!,
                     style: Get.textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   Text(
-                    menu['harga'].toString(),
+                    menu.harga.toString(),
                     style: Get.textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),

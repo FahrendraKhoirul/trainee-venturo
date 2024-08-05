@@ -11,4 +11,5 @@ abstract class MainRoute {
   static const String home = '/navbar/home';
   static const String profile = '/navbar/profile';
   static const String order = '/navbar/order';
+  static const String detailPromo = '/detail-promo';
 }

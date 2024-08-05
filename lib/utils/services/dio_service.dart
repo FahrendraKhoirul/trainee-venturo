@@ -4,12 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 
-class HttpService extends GetxService {
-  HttpService._();
+class DioService extends GetxService {
+  DioService._();
 
-  static final HttpService dioService = HttpService._();
+  static final DioService dioService = DioService._();
 
-  factory HttpService() {
+  factory DioService() {
     return dioService;
   }
 

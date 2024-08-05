@@ -10,6 +10,8 @@ import 'package:trainee/modules/features/initial/bindings/get_location_binding.d
 import 'package:trainee/modules/features/initial/views/ui/get_location_view.dart';
 import 'package:trainee/modules/features/navbar/bindings/navbar_binding.dart';
 import 'package:trainee/modules/features/navbar/modules/home/bindings/home_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/home/modules/detail_promo/bindings/detail_promo_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/home/modules/detail_promo/views/ui/detail_promo_view.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/ui/home_view.dart';
 import 'package:trainee/modules/features/navbar/modules/profile/bindings/profile_binding.dart';
 import 'package:trainee/modules/features/navbar/modules/profile/views/ui/profile_view.dart';
@@ -68,6 +70,14 @@ abstract class MainPage {
         page: () => const ForgotPasswordView(),
         binding: ForgotPasswordBindding()),
     GetPage(
-        name: MainRoute.otp, page: () => const OtpView(), binding: OtpBinding())
+      name: MainRoute.otp,
+      page: () => const OtpView(),
+      binding: OtpBinding(),
+    ),
+    GetPage(
+      name: MainRoute.detailPromo,
+      page: () => DetailPromoView(),
+      binding: DetailPromoBinding(),
+    )
   ];
 }

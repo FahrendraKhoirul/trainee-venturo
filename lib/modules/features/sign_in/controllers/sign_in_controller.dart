@@ -13,7 +13,7 @@ import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/api/api_constant.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/shared/styles/google_text_style.dart';
-import 'package:trainee/utils/services/http_service.dart';
+import 'package:trainee/utils/services/dio_service.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
 
 class SignInController extends GetxController {
@@ -71,14 +71,14 @@ class SignInController extends GetxController {
       required String password,
       required context}) async {
     // init dio from HttpService
-    Dio dio = HttpService.dioCall();
+    Dio dio = DioService.dioCall();
     try {
       final response = await dio.post(ApiConstant.loginAuth, data: {
         'email': email,
         'password': password,
       });
       if (response.statusCode == 200) {
-        LocalStorageService.signInAuth(email, password);
+        LocalStorageService.signInAuth(email, password, response.data);
         Get.offAllNamed(MainRoute.initial);
       } else {
         PanaraInfoDialog.show(context,
