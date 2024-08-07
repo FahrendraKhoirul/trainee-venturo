@@ -1,22 +1,22 @@
 // ignore_for_file: constant_identifier_names
 
-class MenusModel {
+class AllMenuAPIModel {
   int? statusCode;
-  List<DataMenu>? dataMenus;
+  List<MenuModel>? dataMenus;
   List<String>? errors;
 
-  MenusModel({
+  AllMenuAPIModel({
     required this.statusCode,
     required this.dataMenus,
     required this.errors,
   });
 
-  factory MenusModel.fromJson(Map<String, dynamic> json) {
+  factory AllMenuAPIModel.fromJson(Map<String, dynamic> json) {
     // print("Parsing MenusModel from JSON: $json");
-    return MenusModel(
+    return AllMenuAPIModel(
       statusCode: json["status_code"] ?? 0,
       dataMenus: json["data"] != null
-          ? List<DataMenu>.from(json["data"].map((x) => DataMenu.fromJson(x)))
+          ? List<MenuModel>.from(json["data"].map((x) => MenuModel.fromJson(x)))
           : [],
       errors: json["errors"] != null
           ? List<String>.from(json["errors"].map((x) => x))
@@ -31,7 +31,7 @@ class MenusModel {
       };
 }
 
-class DataMenu {
+class MenuModel {
   int? idMenu;
   String? nama;
   KategoriMenu? kategori;
@@ -40,7 +40,7 @@ class DataMenu {
   String? foto;
   int? status;
 
-  DataMenu({
+  MenuModel({
     required this.idMenu,
     required this.nama,
     required this.kategori,
@@ -50,9 +50,9 @@ class DataMenu {
     required this.status,
   });
 
-  factory DataMenu.fromJson(Map<String, dynamic> json) {
+  factory MenuModel.fromJson(Map<String, dynamic> json) {
     // print("Parsing DataMenu from JSON: $json");
-    return DataMenu(
+    return MenuModel(
       idMenu: json["id_menu"] ?? 0,
       nama: json["nama"] ?? '',
       kategori: kategoriValues.map[json["kategori"]] ?? KategoriMenu.MAKANAN,

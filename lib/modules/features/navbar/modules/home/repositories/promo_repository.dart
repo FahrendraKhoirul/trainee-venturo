@@ -14,7 +14,7 @@ class PromoRepository {
   // get user data from LocalStorageService
   static final _userData = LocalStorageService.getUserData();
 
-  static Future<PromosModel> getAllPromo() async {
+  static Future<AllPromoAPIModel> getAllPromo() async {
     try {
       final response = await _dio.get(
         ApiConstant.getAllPromo,
@@ -27,7 +27,7 @@ class PromoRepository {
       if (response.statusCode == 200) {
         // print("Promos data: ${response.data["data"][0]}");
         // print(PromosModel.fromJson(response.data).toString());
-        return PromosModel.fromJson(response.data);
+        return AllPromoAPIModel.fromJson(response.data);
       } else {
         final errorData = response.data;
         final errorMessage =

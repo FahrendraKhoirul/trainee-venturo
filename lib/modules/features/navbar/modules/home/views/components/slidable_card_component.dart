@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/navbar/modules/home/controllers/home_controller.dart';
-import 'package:trainee/modules/features/navbar/modules/home/models/menu_model.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/components/menu_card.dart';
 
 class SlidableCardComponent extends StatelessWidget {
@@ -12,7 +13,7 @@ class SlidableCardComponent extends StatelessWidget {
     required this.item,
   });
 
-  final DataMenu item;
+  final MenuModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +45,12 @@ class SlidableCardComponent extends StatelessWidget {
               menu: item,
               isSelected: HomeController.to.selectedItems.contains(item),
               onTap: () {
-                if (HomeController.to.selectedItems.contains(item)) {
-                  HomeController.to.selectedItems.remove(item);
-                } else {
-                  HomeController.to.selectedItems.add(item);
-                }
+                Get.toNamed(MainRoute.detailMenu, arguments: item);
+                // if (HomeController.to.selectedItems.contains(item)) {
+                //   HomeController.to.selectedItems.remove(item);
+                // } else {
+                //   HomeController.to.selectedItems.add(item);
+                // }
               },
             ),
           ),

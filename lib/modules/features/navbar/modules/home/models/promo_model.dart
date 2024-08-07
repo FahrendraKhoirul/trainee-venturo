@@ -1,20 +1,21 @@
-class PromosModel {
+class AllPromoAPIModel {
   int? statusCode;
-  List<DataPromo>? dataPromos;
+  List<PromoModel>? dataPromos;
   List<String>? errors;
 
-  PromosModel({
+  AllPromoAPIModel({
     required this.statusCode,
     required this.dataPromos,
     required this.errors,
   });
 
-  factory PromosModel.fromJson(Map<String, dynamic> json) {
+  factory AllPromoAPIModel.fromJson(Map<String, dynamic> json) {
     // print("Parsing PromosModel from JSON: $json");
-    return PromosModel(
+    return AllPromoAPIModel(
       statusCode: json["status_code"] ?? 0,
       dataPromos: json["data"] != null
-          ? List<DataPromo>.from(json["data"].map((x) => DataPromo.fromJson(x)))
+          ? List<PromoModel>.from(
+              json["data"].map((x) => PromoModel.fromJson(x)))
           : [],
       errors: json["errors"] != null
           ? List<String>.from(json["errors"].map((x) => x))
@@ -29,7 +30,7 @@ class PromosModel {
       };
 }
 
-class DataPromo {
+class PromoModel {
   int? idPromo;
   String? nama;
   String? type;
@@ -42,7 +43,7 @@ class DataPromo {
   int? createdBy;
   int? isDeleted;
 
-  DataPromo({
+  PromoModel({
     required this.idPromo,
     required this.nama,
     required this.type,
@@ -56,8 +57,8 @@ class DataPromo {
     required this.isDeleted,
   });
 
-  factory DataPromo.fromJson(Map<String, dynamic> json) {
-    return DataPromo(
+  factory PromoModel.fromJson(Map<String, dynamic> json) {
+    return PromoModel(
       idPromo: json["id_promo"] ?? 0,
       nama: json["nama"] ?? '',
       type: json["type"] ?? '',

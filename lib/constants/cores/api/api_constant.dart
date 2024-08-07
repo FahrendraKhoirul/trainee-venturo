@@ -8,4 +8,6 @@ class ApiConstant {
   static const String getAllMenu = "https://trainee.landa.id/javacode/menu/all";
   static const String getAllPromo =
       "https://trainee.landa.id/javacode/promo/all";
+  static const String getMenuDetail =
+      "https://trainee.landa.id/javacode/menu/detail";
 }

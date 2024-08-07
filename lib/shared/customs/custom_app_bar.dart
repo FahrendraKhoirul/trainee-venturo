@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.title, this.leadingIcon});
@@ -38,14 +40,30 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            leadingIcon ?? Container(),
-            Text(
-              title,
-              style: Get.textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).primaryColor,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w700,
+            IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+              color: MainColor.black,
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  leadingIcon ?? Container(),
+                  Text(
+                    title,
+                    style: GoogleTextStyle.fw600.copyWith(
+                      fontSize: 20.sp,
+                      color: MainColor.black,
+                    ),
+                  ),
+                ],
               ),
+            ),
+            Container(
+              width: 40.w,
             ),
           ],
         ),

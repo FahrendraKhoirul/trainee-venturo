@@ -57,7 +57,7 @@ class HomeView extends StatelessWidget {
                                       .to.promoItems[index].nominal
                                       .toString(),
                                   thumbnailUrl:
-                                      "https://javacode.landa.id/img/promo/gambar_62661b52223ff.png",
+                                      HomeController.to.promoItems[index].foto!,
                                   onTap: () {
                                     Get.toNamed(
                                       MainRoute.detailPromo,
@@ -85,15 +85,30 @@ class HomeView extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 25.w),
                       itemBuilder: (context, index) {
                         final category = HomeController.to.categories[index];
-                        return Obx(() => MenuChip(
-                              onTap: () {
-                                HomeController.to.selectedCategory(category);
-                              },
-                              isSelected:
-                                  HomeController.to.selectedCategory.value ==
-                                      category,
-                              text: category,
-                            ));
+                        IconData iconChip;
+                        if (category == HomeController.to.categories[0]) {
+                          iconChip = Icons.menu_book;
+                        } else if (category ==
+                            HomeController.to.categories[1]) {
+                          iconChip = Icons.food_bank_outlined;
+                        } else if (category ==
+                            HomeController.to.categories[2]) {
+                          iconChip = Icons.local_drink_rounded;
+                        } else {
+                          iconChip = Icons.fastfood_outlined;
+                        }
+                        return Obx(
+                          () => MenuChip(
+                            onTap: () {
+                              HomeController.to.selectedCategory(category);
+                            },
+                            isSelected:
+                                HomeController.to.selectedCategory.value ==
+                                    category,
+                            text: category,
+                            icon: iconChip,
+                          ),
+                        );
                       },
                       separatorBuilder: (context, index) => 13.horizontalSpace,
                     ),
@@ -114,8 +129,9 @@ class HomeView extends StatelessWidget {
                   } else if (currentCategory ==
                       HomeController.to.categories[2]) {
                     iconSection = Icons.local_drink;
-                  } else {
-                    iconSection = Icons.menu_book;
+                  } else if (currentCategory ==
+                      HomeController.to.categories[3]) {
+                    iconSection = Icons.fastfood_rounded;
                   }
                   return Container(
                     width: 1.sw,

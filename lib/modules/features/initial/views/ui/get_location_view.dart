@@ -33,14 +33,14 @@ class GetLocationView extends StatelessWidget {
               Obx(() {
                 if (InitialController.to.statusLocation.value == 'loading') {
                   return Text(
-                    'Mencari lokasimu...',
+                    'Finding your location...'.tr,
                     style: Get.textTheme.titleLarge!
                         .copyWith(color: AppColor.kDarkColor.withOpacity(0.5)),
                     textAlign: TextAlign.center,
                   );
                 } else {
                   return Text(
-                    'Lokasimu',
+                    'Your location'.tr,
                     style: Get.textTheme.titleLarge!
                         .copyWith(color: AppColor.kDarkColor.withOpacity(0.5)),
                     textAlign: TextAlign.center,

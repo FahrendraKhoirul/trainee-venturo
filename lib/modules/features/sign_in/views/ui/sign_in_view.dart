@@ -55,7 +55,7 @@ class SignInView extends StatelessWidget {
                 ),
                 SizedBox(height: 121.h),
                 Text(
-                  'Masuk untuk melanjutkan!',
+                  'Login to your account',
                   style: GoogleTextStyle.fw600.copyWith(
                     fontSize: 22.sp,
                     color: MainColor.black,
@@ -73,7 +73,7 @@ class SignInView extends StatelessWidget {
                         Get.toNamed(MainRoute.forgotPassword);
                       },
                       child: const Text(
-                        "Lupa password?",
+                        "Forgot Password?",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -84,7 +84,7 @@ class SignInView extends StatelessWidget {
                   style: ElevatedButtonStyle.mainRounded,
                   onPressed: () => SignInController.to.validateForm(context),
                   child: Text(
-                    "Masuk",
+                    "Login",
                     style: GoogleTextStyle.fw800.copyWith(
                       fontSize: 14.sp,
                       color: MainColor.white,
@@ -104,7 +104,7 @@ class SignInView extends StatelessWidget {
                     ),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text("atau")),
+                        child: Text("or")),
                     Expanded(
                       child: Divider(
                         thickness: 1,
@@ -142,7 +142,7 @@ class SignInView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Masuk menggunakan ",
+                              "Login with ",
                               style: GoogleTextStyle.fw400
                                   .copyWith(color: MainColor.black),
                             ),

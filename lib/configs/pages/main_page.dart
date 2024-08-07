@@ -10,6 +10,8 @@ import 'package:trainee/modules/features/initial/bindings/get_location_binding.d
 import 'package:trainee/modules/features/initial/views/ui/get_location_view.dart';
 import 'package:trainee/modules/features/navbar/bindings/navbar_binding.dart';
 import 'package:trainee/modules/features/navbar/modules/home/bindings/home_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/home/modules/detail_menu/bindings/detail_menu_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/home/modules/detail_menu/views/ui/detail_menu_view.dart';
 import 'package:trainee/modules/features/navbar/modules/home/modules/detail_promo/bindings/detail_promo_binding.dart';
 import 'package:trainee/modules/features/navbar/modules/home/modules/detail_promo/views/ui/detail_promo_view.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/ui/home_view.dart';
@@ -78,6 +80,11 @@ abstract class MainPage {
       name: MainRoute.detailPromo,
       page: () => DetailPromoView(),
       binding: DetailPromoBinding(),
+    ),
+    GetPage(
+      name: MainRoute.detailMenu,
+      page: () => DetailMenuView(),
+      binding: DetailMenuBinding(),
     )
   ];
 }

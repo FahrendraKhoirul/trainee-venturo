@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class MenuChip extends StatelessWidget {
   final bool isSelected;
   final String text;
   final Function()? onTap;
+  final IconData? icon;
 
   const MenuChip({
     Key? key,
     this.isSelected = false,
     required this.text,
     this.onTap,
+    required this.icon,
   }) : super(key: key);
 
   @override
@@ -20,10 +23,10 @@ class MenuChip extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(30.r),
       child: Ink(
-        padding: EdgeInsets.symmetric(horizontal: 14.r),
+        padding: EdgeInsets.fromLTRB(10.w, 5.h, 10.w, 5.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
-          color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+          color: isSelected ? MainColor.black : MainColor.primary,
           boxShadow: const [
             BoxShadow(
               offset: Offset(0, 2),
@@ -33,16 +36,22 @@ class MenuChip extends StatelessWidget {
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Center(
-            child: Text(
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: MainColor.white,
+              size: 16.sp,
+            ),
+            SizedBox(width: 5.w),
+            Text(
               text,
-              style: Get.textTheme.bodyLarge!.copyWith(
-                color: Colors.white,
+              style: GoogleTextStyle.fw600.copyWith(
+                fontSize: 16.sp,
+                color: MainColor.white,
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
