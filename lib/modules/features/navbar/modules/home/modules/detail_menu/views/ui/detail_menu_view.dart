@@ -12,7 +12,7 @@ class DetailMenuView extends StatelessWidget {
   DetailMenuView({super.key});
 
   // call controller
-  final DetailMenuController controller = Get.put(DetailMenuController());
+  final DetailMenuController controller = DetailMenuController.to;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,15 +29,15 @@ class DetailMenuView extends StatelessWidget {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : _buildBody(controller: controller),
+              : BuildBody(controller: controller),
         ),
       ),
     );
   }
 }
 
-class _buildBody extends StatelessWidget {
-  const _buildBody({
+class BuildBody extends StatelessWidget {
+  const BuildBody({
     super.key,
     required this.controller,
   });
@@ -46,9 +46,7 @@ class _buildBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
@@ -87,7 +85,7 @@ class _buildBody extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          controller.arg.deskripsi!,
+                          controller.detailMenu.value.data!.menu!.deskripsi!,
                           style: GoogleTextStyle.fw500.copyWith(
                             fontSize: 16,
                             color: MainColor.black,
@@ -157,11 +155,31 @@ class _buildBody extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
-                    "Rp ${controller.detailMenu.value.data!.menu!.harga!}",
-                    style: GoogleTextStyle.fw600.copyWith(
-                      fontSize: 16,
-                      color: MainColor.black,
+                  GestureDetector(
+                    onTap: () {
+                      controller.openLevelBottomSheet();
+                    },
+                    child: Row(
+                      children: [
+                        Obx(
+                          () => Text(
+                            controller.detailMenu.value.data!.level!.isEmpty
+                                ? "-"
+                                : "${controller.detailMenu.value.data!.level![controller.selectedLevel.value].keterangan}",
+                            style: GoogleTextStyle.fw600.copyWith(
+                              fontSize: 16,
+                              color: MainColor.black,
+                            ),
+                          ),
+                        ),
+                        if (controller.detailMenu.value.data!.level!.isNotEmpty)
+                          const SizedBox(width: 5),
+                        if (controller.detailMenu.value.data!.level!.isNotEmpty)
+                          const Icon(
+                            Icons.keyboard_arrow_right_rounded,
+                            color: MainColor.black,
+                          ),
+                      ],
                     ),
                   ),
                 ],
@@ -189,11 +207,33 @@ class _buildBody extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
-                    "Rp ${controller.detailMenu.value.data!.menu!.harga!}",
-                    style: GoogleTextStyle.fw600.copyWith(
-                      fontSize: 16,
-                      color: MainColor.black,
+                  GestureDetector(
+                    onTap: () {
+                      controller.openToppingBottomSheet();
+                    },
+                    child: Row(
+                      children: [
+                        Obx(
+                          () => Text(
+                            controller.detailMenu.value.data!.topping!.isEmpty
+                                ? "-"
+                                : "${controller.detailMenu.value.data!.topping![controller.selectedTopping.value].keterangan}",
+                            style: GoogleTextStyle.fw600.copyWith(
+                              fontSize: 16,
+                              color: MainColor.black,
+                            ),
+                          ),
+                        ),
+                        if (controller
+                            .detailMenu.value.data!.topping!.isNotEmpty)
+                          const SizedBox(width: 5),
+                        if (controller
+                            .detailMenu.value.data!.topping!.isNotEmpty)
+                          const Icon(
+                            Icons.keyboard_arrow_right_rounded,
+                            color: MainColor.black,
+                          ),
+                      ],
                     ),
                   ),
                 ],
@@ -221,11 +261,29 @@ class _buildBody extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
-                    "Rp ${controller.detailMenu.value.data!.menu!.harga!}",
-                    style: GoogleTextStyle.fw600.copyWith(
-                      fontSize: 16,
-                      color: MainColor.black,
+                  GestureDetector(
+                    onTap: () {
+                      controller.openNoteBottomSheet();
+                    },
+                    child: Row(
+                      children: [
+                        Obx(
+                          () => Text(
+                            controller.noteController.value.text.isEmpty
+                                ? "...add note"
+                                : controller.noteController.value.text,
+                            style: GoogleTextStyle.fw600.copyWith(
+                              fontSize: 16,
+                              color: MainColor.black,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        const Icon(
+                          Icons.keyboard_arrow_right_rounded,
+                          color: MainColor.black,
+                        ),
+                      ],
                     ),
                   ),
                 ],

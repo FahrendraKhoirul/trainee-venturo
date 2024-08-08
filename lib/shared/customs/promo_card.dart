@@ -35,14 +35,15 @@ class PromoCard extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15.r),
           image: DecorationImage(
-              image: CachedNetworkImageProvider(
-                thumbnailUrl,
-              ),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).primaryColor.withAlpha(150),
-                BlendMode.srcATop,
-              )),
+            image: CachedNetworkImageProvider(
+              thumbnailUrl,
+            ),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).primaryColor.withAlpha(150),
+              BlendMode.srcATop,
+            ),
+          ),
           boxShadow: [
             if (enableShadow == true)
               const BoxShadow(

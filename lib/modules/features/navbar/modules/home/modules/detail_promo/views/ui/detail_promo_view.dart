@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/navbar/modules/home/modules/detail_promo/controllers/detail_promo_controller.dart';
@@ -11,7 +10,7 @@ class DetailPromoView extends StatelessWidget {
   DetailPromoView({super.key});
 
   // call controller
-  final DetailPromoController controller = Get.put(DetailPromoController());
+  final DetailPromoController controller = DetailPromoController.to;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
