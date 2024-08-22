@@ -20,7 +20,7 @@ class DetailMenuView extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: const CustomAppBar(
           title: "Detail Menu",
-          leadingIcon: Icon(
+          icon: Icon(
             Icons.menu_book_rounded,
           ),
         ),

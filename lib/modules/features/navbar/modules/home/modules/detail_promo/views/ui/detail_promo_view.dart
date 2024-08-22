@@ -18,7 +18,7 @@ class DetailPromoView extends StatelessWidget {
         backgroundColor: Colors.grey[100],
         appBar: const CustomAppBar(
           title: "Detail Promo",
-          leadingIcon: Icon(
+          icon: Icon(
             Icons.discount_rounded,
           ),
         ),

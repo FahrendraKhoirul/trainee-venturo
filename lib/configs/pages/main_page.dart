@@ -15,6 +15,10 @@ import 'package:trainee/modules/features/navbar/modules/home/modules/detail_menu
 import 'package:trainee/modules/features/navbar/modules/home/modules/detail_promo/bindings/detail_promo_binding.dart';
 import 'package:trainee/modules/features/navbar/modules/home/modules/detail_promo/views/ui/detail_promo_view.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/ui/home_view.dart';
+import 'package:trainee/modules/features/navbar/modules/order/bindings/order_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/order/bindings/order_detail_binding.dart';
+import 'package:trainee/modules/features/navbar/modules/order/views/ui/order_detail_view.dart';
+import 'package:trainee/modules/features/navbar/modules/order/views/ui/order_view.dart';
 import 'package:trainee/modules/features/navbar/modules/profile/bindings/profile_binding.dart';
 import 'package:trainee/modules/features/navbar/modules/profile/views/ui/profile_view.dart';
 import 'package:trainee/modules/features/navbar/views/ui/navbar_view.dart';
@@ -36,12 +40,17 @@ abstract class MainPage {
       name: MainRoute.navbar,
       page: () => const NavbarView(),
       binding: NavbarBinding(),
-      bindings: [HomeBinding(), ProfileBinding()],
+      bindings: [HomeBinding(), OrderBinding(), ProfileBinding()],
       children: [
         GetPage(
           name: MainRoute.home,
           page: () => const HomeView(),
           binding: HomeBinding(),
+        ),
+        GetPage(
+          name: MainRoute.order,
+          page: () => const OrderView(),
+          binding: OrderBinding(),
         ),
         GetPage(
           name: MainRoute.profile,
@@ -85,6 +94,11 @@ abstract class MainPage {
       name: MainRoute.detailMenu,
       page: () => DetailMenuView(),
       binding: DetailMenuBinding(),
+    ),
+    GetPage(
+      name: MainRoute.orderDetail,
+      page: () => const OrderDetailView(),
+      binding: OrderDetailBinding(),
     )
   ];
 }

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,6 +24,7 @@ class PromoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print("thumbnailUrl : $thumbnailUrl");
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(15.r),
@@ -34,16 +34,6 @@ class PromoCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15.r),
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(
-              thumbnailUrl,
-            ),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Theme.of(context).primaryColor.withAlpha(150),
-              BlendMode.srcATop,
-            ),
-          ),
           boxShadow: [
             if (enableShadow == true)
               const BoxShadow(

@@ -51,6 +51,9 @@ class MenuCard extends StatelessWidget {
                 imageUrl: menu.foto!,
                 useOldImageOnUrlChange: true,
                 fit: BoxFit.contain,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
                 errorWidget: (context, url, error) => const Icon(
                   Icons.error,
                   color: Colors.red,
