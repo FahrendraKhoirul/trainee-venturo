@@ -15,11 +15,12 @@ class LocalStorageService extends GetxService {
     }
   }
 
-  static Future signInAuth(String email, String password) async {
+  static Future signInAuth(String email, String password, responseData) async {
     box.put("isLogin", true);
     box.put("isLoginEmail", true);
     box.put("email", email);
     box.put("password", password);
+    box.put("response_data", responseData);
   }
 
   static Future signInGmailAuth(UserCredential userCredential) async {
@@ -31,5 +32,9 @@ class LocalStorageService extends GetxService {
 
   static Future<bool> isLogin() async {
     return box.get("isLogin") ?? false;
+  }
+
+  static getUserData(){
+    return box.get("response_data");
   }
 }

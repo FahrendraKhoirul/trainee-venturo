@@ -13,36 +13,20 @@ class NoConnectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+      width: double.infinity,
       color: Colors.white,
-      padding: EdgeInsets.symmetric(
-        vertical: 35.h,
-        horizontal: 35.w,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          // const Image(
-          //   image: AssetImage('assets/images/no_connection.png'),
-          //   height: 100,
-          // ),
           SizedBox(height: 20.h),
           const Text(
-            "Oops tidak ada koneksi internet",
-            // style: GoogleFonts.roboto(
-            //   fontSize: 22.sp,
-            //   fontWeight: FontWeight.w700,
-            //   color: MainColor.primary,
-            // ),
+            "Oops! There is no internet connection",
           ),
           SizedBox(height: 10.h),
           const Text(
-            "Pastikan wifi atau data seluler terhubung, lalu tekan tombol coba lagi",
-            // style: GoogleFonts.roboto(
-            //   fontSize: 18.sp,
-            //   fontWeight: FontWeight.w400,
-            // ),
+            "Please check your internet connection and try again",
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 20.h),
@@ -64,17 +48,13 @@ class NoConnectionView extends StatelessWidget {
                     Get.offNamed(MainRoute.initial);
                   } else {
                     Get.snackbar(
-                      "Terjadi Kesalahan",
-                      "Koneksi masih belum tersambung",
+                      "Something went wrong",
+                      "Connection still not available",
                     );
                   }
                 },
                 child: const Text(
-                  "Coba Lagi",
-                  // style: GoogleFonts.roboto(
-                  //   fontSize: 18.sp,
-                  //   fontWeight: FontWeight.w700,
-                  // ),
+                  "Try Again",
                   textAlign: TextAlign.center,
                 )),
           ),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,8 @@ class PromoCard extends StatelessWidget {
     required this.promoName,
     required this.discountNominal,
     required this.thumbnailUrl,
+    required this.isVoucher,
+    this.onTap,
     this.width,
   });
 
@@ -17,12 +18,15 @@ class PromoCard extends StatelessWidget {
   final String promoName;
   final String discountNominal;
   final String thumbnailUrl;
+  final bool isVoucher;
+  final VoidCallback? onTap;
   final double? width;
 
   @override
   Widget build(BuildContext context) {
+    // print("thumbnailUrl : $thumbnailUrl");
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(15.r),
       child: Container(
         width: width ?? 282.w,
@@ -30,15 +34,6 @@ class PromoCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15.r),
-          image: DecorationImage(
-              image: CachedNetworkImageProvider(
-                thumbnailUrl,
-              ),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).primaryColor.withAlpha(150),
-                BlendMode.srcATop,
-              )),
           boxShadow: [
             if (enableShadow == true)
               const BoxShadow(
@@ -58,14 +53,16 @@ class PromoCard extends StatelessWidget {
                 softWrap: true,
                 textAlign: TextAlign.center,
                 TextSpan(
-                  text: 'Diskon',
+                  text: isVoucher ? 'Voucher \n' : 'Diskon ',
                   style: Get.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w800,
                     color: Colors.white,
                   ),
                   children: [
                     TextSpan(
-                      text: ' $discountNominal %',
+                      text: isVoucher
+                          ? 'Rp. $discountNominal'
+                          : '$discountNominal%',
                       style: Get.textTheme.displaySmall?.copyWith(
                         fontWeight: FontWeight.w800,
                         foreground: Paint()

@@ -1,23 +1,25 @@
-
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/modules/features/navbar/modules/home/repositories/list_repository.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
+import 'package:trainee/modules/features/navbar/modules/home/models/promo_model.dart';
+import 'package:trainee/modules/global_repositories/menu_repository.dart';
+import 'package:trainee/modules/features/navbar/modules/home/repositories/promo_repository.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find<HomeController>();
-  late final ListRepository repository;
   final RxInt page = 0.obs;
-  final RxList<Map<String, dynamic>> items = <Map<String, dynamic>>[].obs;
-  final RxList<Map<String, dynamic>> selectedItems =
-      <Map<String, dynamic>>[].obs;
+  final RxList<PromoModel> promoItems = <PromoModel>[].obs;
+  final RxList<MenuModel> menuItems = <MenuModel>[].obs;
+  final RxList<MenuModel> selectedItems = <MenuModel>[].obs;
   final RxBool canLoadMore = true.obs;
-  final RxString selectedCategory = 'all'.obs;
+  final RxString selectedCategory = 'All'.obs;
   final RxString keyword = ''.obs;
   final List<String> categories = [
     'All',
     'Food',
     'Drink',
+    'Snack',
   ];
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -25,64 +27,75 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    repository = ListRepository();
-    await getListOfData();
+    await getAllMenus();
+    await getAllPromos();
+    // await getListOfData();
   }
 
   void onRefresh() async {
-    page(0);
-    canLoadMore(true);
-    final result = await getListOfData();
-    if (result) {
+    try {
+      await getAllMenus();
       refreshController.refreshCompleted();
-    } else {
+    } catch (exception, stacktrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stacktrace,
+      );
       refreshController.refreshFailed();
     }
   }
 
-  List<Map<String, dynamic>> get filteredList => items
-      .where((element) =>
-          element['name']
-              .toString()
-              .toLowerCase()
-              .contains(keyword.value.toLowerCase()) &&
-          (selectedCategory.value == 'all' ||
-              element['category'] == selectedCategory.value))
-      .toList();
-
-  Future<bool> getListOfData() async {
+  // ======== MENU Section ===========
+  Future<void> getAllMenus() async {
     try {
-      final result = repository.getListOfData(
-        offset: page.value * 5,
-      );
-      if (result['previous'] == null) {
-        items.clear();
-      }
-
-      if (result['next'] == null) {
-        canLoadMore(false);
-        refreshController.loadNoData();
-      }
-
-      items.addAll(result['data']);
-      page.value++;
+      AllMenuAPIModel menus = await MenuRepository.getAllMenu();
+      // print("menus: ${menus.toString()}");
+      menuItems.value = menus.dataMenus!;
+      // print("menuItems: $menuItems");
       refreshController.loadComplete();
-      return true;
     } catch (exception, stacktrace) {
       await Sentry.captureException(
         exception,
         stackTrace: stacktrace,
       );
       refreshController.loadFailed();
-      return false;
     }
   }
 
-  Future<void> deleteItem(Map<String, dynamic> item) async {
+  List<MenuModel> get filteredMenuList {
+    return menuItems.where((item) {
+      if (selectedCategory.value.toLowerCase() == 'all') {
+        return true;
+      } else if (selectedCategory.value.toLowerCase() == 'food') {
+        return item.kategori == KategoriMenu.MAKANAN;
+      } else if (selectedCategory.value.toLowerCase() == 'drink') {
+        return item.kategori == KategoriMenu.MINUMAN;
+      } else if (selectedCategory.value.toLowerCase() == 'snack') {
+        return item.kategori == KategoriMenu.SNACK;
+      }
+      return false;
+    }).toList();
+  }
+
+  Future<void> deleteMenuItem(MenuModel item) async {
     try {
-      repository.deleteItem(item['id_menu']);
-      items.remove(item);
+      menuItems.remove(item);
       selectedItems.remove(item);
+    } catch (exception, stacktrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stacktrace,
+      );
+    }
+  }
+
+  // ======== Promo Section ===========
+  Future<void> getAllPromos() async {
+    try {
+      // print("Get All Promos");
+      AllPromoAPIModel promos = await PromoRepository.getAllPromo();
+      // print("tesss======== " + promos.dataPromos.toString());
+      promoItems.value = promos.dataPromos!;
     } catch (exception, stacktrace) {
       await Sentry.captureException(
         exception,

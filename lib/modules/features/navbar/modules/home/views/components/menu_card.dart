@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class MenuCard extends StatelessWidget {
-  final Map<String, dynamic> menu;
+  final MenuModel menu;
   final bool isSelected;
   final void Function()? onTap;
 
@@ -33,6 +35,7 @@ class MenuCard extends StatelessWidget {
           ),
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // menu image
             Container(
@@ -45,10 +48,16 @@ class MenuCard extends StatelessWidget {
                 color: Colors.grey[100],
               ),
               child: CachedNetworkImage(
-                imageUrl: menu['foto'] ??
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                imageUrl: menu.foto!,
                 useOldImageOnUrlChange: true,
                 fit: BoxFit.contain,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
               ),
             ),
 
@@ -58,18 +67,21 @@ class MenuCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 5.h),
                   Text(
-                    menu['name'],
-                    style: Get.textTheme.titleMedium,
+                    menu.nama!,
+                    style: GoogleTextStyle.fw500.copyWith(
+                      fontSize: 18.sp,
+                      color: MainColor.black,
+                    ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
-                  Text(
-                    menu['harga'].toString(),
-                    style: Get.textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  Text("Rp ${menu.harga!}",
+                      style: GoogleTextStyle.fw700.copyWith(
+                        fontSize: 18.sp,
+                        color: MainColor.primary,
+                      )),
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/ui/home_view.dart';
+import 'package:trainee/modules/features/navbar/modules/order/views/ui/order_view.dart';
 import 'package:trainee/modules/features/navbar/modules/profile/views/ui/profile_view.dart';
 
 class NavbarController extends GetxController {
@@ -9,7 +10,7 @@ class NavbarController extends GetxController {
   RxInt selectedIndex = 0.obs;
   static List<Widget> screens = [
     const HomeView(),
-    const Center(child: Text("Order")),
+    const OrderView(),
     const ProfileView(),
   ];
 

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/navbar/modules/home/controllers/home_controller.dart';
-import 'package:trainee/modules/features/navbar/modules/home/views/components/menu_card.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/components/menu_chip.dart';
-import 'package:trainee/modules/features/navbar/modules/home/views/components/promo_card.dart';
+import 'package:trainee/shared/customs/promo_card.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/components/search_app_bar.dart';
 import 'package:trainee/modules/features/navbar/modules/home/views/components/section_header.dart';
-
+import 'package:trainee/modules/features/navbar/modules/home/views/components/slidable_card_component.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -39,21 +37,39 @@ class HomeView extends StatelessWidget {
                   child: SizedBox(
                     width: 1.sw,
                     height: 188.h,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
-                      itemBuilder: (context, index) {
-                        return PromoCard(
-                          enableShadow: false,
-                          promoName: 'Promo $index',
-                          discountNominal: '${index * 10}',
-                          thumbnailUrl:
-                              "https://javacode.landa.id/img/promo/gambar_62661b52223ff.png",
-                        );
-                      },
-                      separatorBuilder: (context, index) => 26.horizontalSpace,
-                      itemCount: 2,
+                    child: Obx(
+                      () => ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(horizontal: 25.w),
+                          itemBuilder: (context, index) {
+                            return Obx(
+                              () => PromoCard(
+                                  isVoucher: HomeController
+                                              .to.promoItems[index].type ==
+                                          "voucher"
+                                      ? true
+                                      : false,
+                                  enableShadow: false,
+                                  promoName:
+                                      HomeController.to.promoItems[index].nama!,
+                                  discountNominal: HomeController
+                                      .to.promoItems[index].nominal
+                                      .toString(),
+                                  thumbnailUrl:
+                                      HomeController.to.promoItems[index].foto!,
+                                  onTap: () {
+                                    Get.toNamed(
+                                      MainRoute.detailPromo,
+                                      arguments:
+                                          HomeController.to.promoItems[index],
+                                    );
+                                  }),
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              26.horizontalSpace,
+                          itemCount: HomeController.to.promoItems.length),
                     ),
                   ),
                 ),
@@ -69,16 +85,30 @@ class HomeView extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 25.w),
                       itemBuilder: (context, index) {
                         final category = HomeController.to.categories[index];
-                        return Obx(() => MenuChip(
-                              onTap: () {
-                                HomeController.to
-                                    .selectedCategory(category.toLowerCase());
-                              },
-                              isSelected:
-                                  HomeController.to.selectedCategory.value ==
-                                      category.toLowerCase(),
-                              text: category,
-                            ));
+                        IconData iconChip;
+                        if (category == HomeController.to.categories[0]) {
+                          iconChip = Icons.menu_book;
+                        } else if (category ==
+                            HomeController.to.categories[1]) {
+                          iconChip = Icons.food_bank_outlined;
+                        } else if (category ==
+                            HomeController.to.categories[2]) {
+                          iconChip = Icons.local_drink_rounded;
+                        } else {
+                          iconChip = Icons.fastfood_outlined;
+                        }
+                        return Obx(
+                          () => MenuChip(
+                            onTap: () {
+                              HomeController.to.selectedCategory(category);
+                            },
+                            isSelected:
+                                HomeController.to.selectedCategory.value ==
+                                    category,
+                            text: category,
+                            icon: iconChip,
+                          ),
+                        );
                       },
                       separatorBuilder: (context, index) => 13.horizontalSpace,
                     ),
@@ -88,89 +118,47 @@ class HomeView extends StatelessWidget {
               ];
             },
             body: Column(
-              mainAxisSize: MainAxisSize.min,
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 Obx(() {
                   final currentCategory =
                       HomeController.to.selectedCategory.value;
+                  var iconSection = Icons.menu_book;
+                  if (currentCategory == HomeController.to.categories[1]) {
+                    iconSection = Icons.food_bank;
+                  } else if (currentCategory ==
+                      HomeController.to.categories[2]) {
+                    iconSection = Icons.local_drink;
+                  } else if (currentCategory ==
+                      HomeController.to.categories[3]) {
+                    iconSection = Icons.fastfood_rounded;
+                  }
                   return Container(
                     width: 1.sw,
                     height: 35.h,
                     color: Colors.grey[100],
                     margin: EdgeInsets.only(bottom: 10.h),
                     child: SectionHeader(
-                      title: currentCategory == 'all'
-                          ? 'All Menu'
-                          : currentCategory == 'food'
-                              ? 'Food'
-                              : 'Drink',
-                      icon: currentCategory == 'all'
-                          ? Icons.menu_book
-                          : currentCategory == 'food'
-                              ? Icons.food_bank
-                              : Icons.local_drink,
+                      title: currentCategory,
+                      icon: iconSection,
                     ),
                   );
                 }),
-                Expanded(
-                  child: Obx(
-                    () => SmartRefresher(
-                      controller: HomeController.to.refreshController,
-                      enablePullDown: true,
-                      onRefresh: HomeController.to.onRefresh,
-                      enablePullUp:
-                          HomeController.to.canLoadMore.isTrue ? true : false,
-                      onLoading: HomeController.to.getListOfData,
+                Obx(
+                  () => Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: () {
+                        HomeController.to.onRefresh();
+                        return Future<void>.value();
+                      },
                       child: ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 25.w),
+                        itemCount: HomeController.to.filteredMenuList.length,
                         itemBuilder: (context, index) {
-                          final item = HomeController.to.filteredList[index];
-                          return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.5.h),
-                            child: Obx(() => Slidable(
-                                  endActionPane: ActionPane(
-                                    motion: const ScrollMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        onPressed: (context) {
-                                          HomeController.to.deleteItem(item);
-                                        },
-                                        borderRadius: BorderRadius.horizontal(
-                                          right: Radius.circular(10.r),
-                                        ),
-                                        backgroundColor:
-                                            const Color(0xFFFE4A49),
-                                        foregroundColor: Colors.white,
-                                        icon: Icons.delete,
-                                        label: 'Delete',
-                                      ),
-                                    ],
-                                  ),
-                                  child: Material(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    elevation: 2,
-                                    child: MenuCard(
-                                      menu: item,
-                                      isSelected: HomeController
-                                          .to.selectedItems
-                                          .contains(item),
-                                      onTap: () {
-                                        if (HomeController.to.selectedItems
-                                            .contains(item)) {
-                                          HomeController.to.selectedItems
-                                              .remove(item);
-                                        } else {
-                                          HomeController.to.selectedItems
-                                              .add(item);
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                )),
-                          );
+                          final item =
+                              HomeController.to.filteredMenuList[index];
+                          return SlidableCardComponent(item: item);
                         },
-                        itemCount: HomeController.to.filteredList.length,
-                        itemExtent: 112.h,
                       ),
                     ),
                   ),
